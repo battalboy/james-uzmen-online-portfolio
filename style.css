@@ -1,0 +1,720 @@
+/* Load Fonts */
+@font-face {
+  font-family: "din_condensedbold";
+  src: url("./fonts/din_condensed_bold-webfont.woff2") format("woff2"),
+    url("./fonts/din_condensed_bold-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* CSS Variables - Light Mode (Default) */
+:root {
+  /* Brand Colors */
+  --color-primary: #c4aa33;        /* Gold - main brand color */
+  --color-secondary: #a8aab0;      /* Grey - secondary text/accents */
+  --color-background: #eaeaea;     /* Light grey - section backgrounds */
+  --color-dark: #0a0a0a;           /* Dark - timeline accents */
+  --color-text-dark: #333;         /* Dark text */
+  --color-text-light: #ddd;        /* Light text */
+  --color-white: #fff;             /* White */
+  --color-body-bg: #fff;           /* Body background */
+  --color-body-text: #333;         /* Body text color */
+  
+  /* Overlay Colors */
+  --overlay-dark: rgba(0, 0, 0, 0.9);
+  --overlay-medium: rgba(0, 0, 0, 0.8);
+  --overlay-light: rgba(0, 0, 0, 0.2);
+  --overlay-button: rgba(255, 255, 255, 0.1);
+  --overlay-button-hover: rgba(255, 255, 255, 0.2);
+  --overlay-grey: rgba(107, 107, 107, 0.9);
+  
+  /* Typography */
+  --font-heading: "din_condensedbold", Arial, sans-serif;
+  --font-body: "ruda", Arial, sans-serif;
+  
+  /* Spacing */
+  --spacing-xlarge: 120px;
+  --spacing-large: 80px;
+  --spacing-medium: 32px;
+  
+  /* Effects */
+  --border-radius-round: 50%;
+  --border-radius-small: 4px;
+  --border-radius-medium: 7px;
+  --shadow-button: 0 4px 8px rgba(0, 0, 0, 0.2);
+  --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-wispy: 6px 6px 20px rgba(0, 0, 0, 0.3);
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease-out;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s;
+  
+  /* Z-index layers */
+  --z-floating: 999;
+  --z-timeline: 2;
+  --z-negative-1: -1;
+  --z-negative-2: -2;
+  --z-negative-3: -3;
+}
+
+/* Dark Mode Variables */
+[data-theme="dark"] {
+  /* Brand Colors - Adjusted for dark mode */
+  --color-primary: #b8bac0;        /* Brighter gold for better contrast */
+  --color-secondary: #b8bac0;      /* Lighter grey for readability */
+  --color-background: #1a1a1a;     /* Dark background */
+  --color-dark: #f0f0f0;           /* Light - inverted for dark mode */
+  --color-text-dark: #e0e0e0;      /* Light text */
+  --color-text-light: #666;        /* Darker light text */
+  --color-white: #0a0a0a;          /* Dark (inverted) */
+  --color-body-bg: #0a0a0a;        /* Dark body background */
+  --color-body-text: #e0e0e0;      /* Light body text */
+  
+  /* Overlay Colors - Adjusted for dark mode */
+  --overlay-dark: rgba(0, 0, 0, 0.95);
+  --overlay-medium: rgba(0, 0, 0, 0.9);
+  --overlay-light: rgba(255, 255, 255, 0.1);
+  --overlay-button: rgba(255, 255, 255, 0.15);
+  --overlay-button-hover: rgba(255, 255, 255, 0.25);
+  --overlay-grey: rgba(30, 30, 30, 0.95);
+  
+  /* Effects - Adjusted shadows for dark mode */
+  --shadow-button: 0 4px 8px rgba(0, 0, 0, 0.5);
+  --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-wispy: 6px 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* Set every flipping thing to border box */
+* {
+  box-sizing: border-box;
+}
+
+/* Set html height to 100% */
+html {
+  height: 100%;
+}
+
+/* Set body min height to 100% so body content can fill the page dynamically */
+body {
+  min-height: 100%;
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 14px;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  background-color: var(--color-body-bg);
+  color: var(--color-body-text);
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* Set img vertical alignment to middle */
+img {
+  vertical-align: middle;
+  max-width: 100%;
+  display: inline-block;
+}
+
+/* Set h2 font and font size */
+h2 {
+  font-size: 50px;
+  color: var(--color-primary);
+  font-family: var(--font-heading);
+  margin-bottom: 0;
+}
+
+/* Set span for smaller font size in h2*/
+span.james {
+  font-size: 32px;
+}
+
+/* Job title */
+div.title {
+  font-size: 22px;
+  color: var(--color-primary);
+  font-family: var(--font-heading);
+  margin: -15px 0 0 2px;
+}
+
+.page-wrapper {
+  z-index: 0;
+  position: relative;
+}
+
+.container {
+  width: 90vw;
+  max-width: 1360px;
+  margin-inline: auto;
+}
+
+.margin-bottom-medium {
+  margin-bottom: var(--spacing-medium);
+  display: flex;
+  flex-direction: column;
+}
+
+.paragraph-large {
+  letter-spacing: -0.02em;
+  font-size: 20px;
+  font-family: var(--font-body);
+  display: none;
+}
+
+.section-timeline-heading {
+  background-color: var(--color-background);
+}
+
+.padding-vertical-xlarge {
+  padding-top: var(--spacing-xlarge);
+  padding-bottom: var(--spacing-xlarge);
+  display: flex;
+}
+
+.timeline-main_heading-wrapper {
+  color: var(--color-secondary);
+  max-width: 640px;
+  margin-inline: auto;
+}
+
+.timeline_component {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 1120px;
+  margin-inline: auto;
+  display: flex;
+  position: relative;
+}
+
+.timeline_item {
+  z-index: var(--z-timeline);
+  gap: 0;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 180px 1fr;
+  grid-auto-columns: 1fr;
+  padding-top: var(--spacing-large);
+  padding-bottom: var(--spacing-large);
+  display: grid;
+  position: relative;
+}
+
+.timeline_left {
+  text-align: right;
+  justify-content: flex-end;
+  align-items: stretch;
+}
+
+.timeline_centre {
+  justify-content: center;
+  display: flex;
+}
+
+.timeline_date-text {
+  color: var(--color-primary);
+  font-size: 62px;
+  font-weight: 500;
+  line-height: 1.2;
+  position: sticky;
+  top: 50vh;
+  font-family: var(--font-heading);
+  margin: 0;
+}
+
+.timeline_text {
+  color: var(--color-primary);
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 0.9  ;
+  font-family: var(--font-heading);
+}
+
+.timeline_text a {
+  text-decoration: none;
+  color: var(--color-primary);
+}
+
+.timeline_circle {
+  background-color: var(--color-white);
+  border-radius: 100%;
+  width: 15px;
+  height: 15px;
+  position: sticky;
+  top: 50vh;
+  box-shadow: 0 0 0 8px var(--color-dark);
+}
+
+.timeline_progress {
+  z-index: var(--z-negative-2);
+  background-color: var(--color-secondary);
+  width: 3px;
+  height: 100%;
+  position: absolute;
+}
+
+.timeline_progress-bar {
+  z-index: var(--z-negative-1);
+  background: linear-gradient(to bottom, var(--color-secondary), var(--color-primary));
+  width: 3px;
+  height: 50vh;
+  position: fixed;
+  inset: 0 auto 50vh;
+}
+
+.section-timeline {
+  z-index: var(--z-negative-3);
+  background-color: var(--color-background);
+  position: relative;
+}
+
+.timeline_image-wrapper {
+  margin: 0 0 100px 0;
+}
+
+.overlay-fade-top {
+  background-image: linear-gradient(var(--color-background), #ffffff00);
+  height: 80px;
+  position: absolute;
+  inset: 0% 0% auto;
+}
+
+.overlay-fade-bottom {
+  background-image: linear-gradient(to top, var(--color-background), #ffffff00);
+  height: 80px;
+  position: absolute;
+  inset: auto 0% 0%;
+}
+
+/* Media Queries - Mobile */
+@media screen and (max-width: 767px) {
+  h2 {
+    font-size: 40px;
+  }
+
+  .paragraph-large {
+    font-size: 18px;
+  }
+
+  .padding-vertical-xlarge {
+    padding-top: var(--spacing-large);
+    padding-bottom: var(--spacing-large);
+  }
+
+  .timeline_item {
+    grid-template-columns: 64px 1fr;
+    width: 100%;
+  }
+
+  .timeline_left {
+    text-align: left;
+    grid-area: 1 / 2 / 2 / 3;
+  }
+
+  .timeline_centre {
+    justify-content: flex-start;
+    grid-area: 1 / 1 / 3 / 2;
+  }
+
+  .timeline_right {
+    grid-area: span 1 / span 1 / span 1 / span 1;
+  }
+
+  .timeline_date-text {
+    margin-bottom: 24px;
+    font-size: 36px;
+  }
+
+  .timeline_text {
+    font-size: 20px;
+  }
+
+  .timeline_progress {
+    left: 6px;
+  }
+}
+
+/* Floating buttons - shared styles */
+.cv-button,
+.privacy-button {
+  position: fixed;
+  right: 20px;
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: var(--border-radius-round);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  box-shadow: var(--shadow-button);
+  transition: all var(--transition-normal);
+  z-index: var(--z-floating);
+}
+
+/* Floating buttons - specific positions */
+.cv-button {
+  bottom: 80px;
+}
+
+.cv-button:hover,
+.privacy-button:hover {
+  transform: scale(1.1);
+}
+
+.privacy-button {
+  bottom: 20px;
+}
+
+/* Dark mode toggle button */
+.theme-toggle {
+  position: fixed;
+  bottom: 140px;
+  right: 20px;
+  background-color: var(--color-primary);
+  color: var(--color-body-bg);
+  border: none;
+  border-radius: var(--border-radius-round);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-button);
+  transition: all var(--transition-normal);
+  z-index: var(--z-floating);
+}
+
+.theme-toggle .theme-icon {
+  stroke: white;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+.theme-toggle::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  right: 120%;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--overlay-medium);
+  color: white;
+  padding: 8px 12px;
+  border-radius: var(--border-radius-small);
+  font-size: 14px;
+  white-space: nowrap;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.theme-toggle:hover::before {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Tooltip styling for floating buttons */
+.cv-button::before,
+.privacy-button::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  right: 120%;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--overlay-medium);
+  color: white;
+  padding: 8px 12px;
+  border-radius: var(--border-radius-small);
+  font-size: 14px;
+  white-space: nowrap;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+/* Show tooltip on hover */
+.cv-button:hover::before,
+.privacy-button:hover::before {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Base styles for all timeline images */
+.timeline_image-wrapper img {
+  border-radius: 0 0 15px 15px;  /* Only bottom left and bottom right corners */
+  box-shadow: var(--shadow-light);
+  /* margin: -56px 0 0 0; */
+  cursor: pointer;
+}
+
+/* Styles for main (visible) images only */
+.timeline_image-wrapper img:not([style*="display: none"]) {
+  border: 1px solid var(--color-primary);
+  border-top: none;
+  border-radius: 0;  /* Override border radius for main images */
+}
+
+/* Job titles */  
+span.header-small {
+  font-size: 18px;
+}
+
+/* Collapsible info box */
+input[type="checkbox"] {
+  display: none;
+}
+  
+/* Collapsible info box */
+.lbl-toggle {
+  display: block;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 1rem;
+  color: var(--color-text-light);
+  background: var(--color-primary);
+  cursor: pointer;
+  border-radius: var(--border-radius-medium) var(--border-radius-medium) 0 0;  /* Only top left and top right corners */
+  transition: all var(--transition-fast);
+}
+.lbl-toggle:hover {
+  color: var(--color-white);
+}
+.lbl-toggle::before {
+  content: " ";
+  display: inline-block;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid currentColor;
+  vertical-align: middle;
+  margin-right: 0.7rem;
+  transform: translateY(-2px);
+  transition: transform var(--transition-fast);
+}
+.toggle:checked + .lbl-toggle::before {
+  transform: rotate(90deg) translateX(-3px);
+}
+.collapsible-content {
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.25s ease-in-out;
+}
+.toggle:checked + .lbl-toggle + .collapsible-content {
+  max-height: 350px;
+}
+.toggle:checked + .lbl-toggle {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.collapsible-content .content-inner {
+  background: #a8aab07d;
+  border-bottom: 1px solid var(--color-secondary);
+  padding: 0.5rem 1rem;
+  letter-spacing: 0;
+}
+.collapsible-content p {
+  margin-bottom: 0;
+}
+
+/* Lightbox and slideshow */
+.lightbox {
+    position: fixed;
+    z-index: var(--z-floating);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--overlay-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+    pointer-events: none;
+}
+
+.lightbox.active {
+    opacity: 1;
+    pointer-events: all;
+    display: flex;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 90vh;
+    margin-inline: auto;
+    display: block;
+    border-radius: var(--border-radius-small);
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--overlay-button);
+  color: white;
+  padding: 16px;
+  font-size: 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--border-radius-small);
+  transition: background-color var(--transition-normal);
+}
+
+.lightbox-nav:hover {
+  background: var(--overlay-button-hover);
+}
+
+.lightbox-nav.prev {
+  left: 20px;
+}
+
+.lightbox-nav.next {
+  right: 20px;
+}
+
+/* Add keyframes for the slide captions gentle pulsing animation */
+@keyframes pulse-bg {
+  0% { background-color: rgba(196, 170, 51, 0.7); }  /* #c4aa33 with 0.7 opacity */
+  50% { background-color: rgba(168, 170, 176, 0.7); }  /* #a8aab0 with 0.7 opacity */
+  100% { background-color: rgba(196, 170, 51, 0.7); }  /* Back to #c4aa33 */
+}
+
+.lightbox-caption {
+  color: white;
+  font-family: var(--font-body);
+  text-align: center;
+  padding: 10px;
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  max-width: 90%;
+  border-radius: var(--border-radius-small);
+  animation: pulse-bg 4s ease-in-out infinite;
+}
+
+/* Style links in lightbox captions */
+.lightbox-caption a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.lightbox-caption a:hover {
+  text-decoration: underline;
+}
+
+/* Privacy Policy Styles */
+.privacy-content {
+  max-width: 800px;
+  margin-inline: auto;
+  padding: 20px;
+  color: var(--color-text-dark);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+.privacy-content h1,
+.section-timeline-heading h1 {
+  font-family: var(--font-heading);
+  font-size: 50px;
+  color: var(--color-primary);
+  margin-bottom: 0;
+}
+
+.privacy-content h1 {
+  text-transform: uppercase;
+}
+
+.section-timeline-heading h1 {
+  text-align: center;
+}
+
+.privacy-content .last-updated,
+.section-timeline-heading .last-updated {
+  font-family: var(--font-body);
+  font-size: 22px;
+  color: var(--color-secondary);
+  margin: -15px 0 0 2px;
+}
+
+.section-timeline-heading .last-updated {
+  text-align: center;
+}
+
+.privacy-content h2 {
+  color: var(--color-primary);
+  font-family: var(--font-heading);
+  font-size: 28px;
+  margin: 1.5em 0 0.5em;
+}
+
+.privacy-content section {
+  margin-bottom: 1em;
+}
+
+.privacy-content p {
+  margin-bottom: 0.8em;
+}
+
+.privacy-content ul {
+  margin: 0.5em 0 0.8em 1.5em;
+}
+
+.privacy-content li {
+  margin-bottom: 0.5em;
+}
+
+.privacy-content a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.privacy-content a:hover {
+  text-decoration: underline;
+}
+
+.dlcv {
+  color: var(--color-primary);
+}
+
+.dlcv a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.first-image-wrapper {
+    position:relative;
+    box-shadow: var(--shadow-wispy);
+}
+.first-image-wrapper img {
+    width:100%;
+    vertical-align:top;
+}
+.first-image-wrapper:after {
+    content:'CLICK TO VIEW GALLERY';
+    color: var(--color-white);
+    position:absolute;
+    width:100%; height:100%;
+    top:0; left:0;
+    background: var(--overlay-grey);
+    opacity:0;
+    transition: all var(--transition-slow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.first-image-wrapper:hover:after {
+    opacity:1;
+    pointer-events: none;
+}
+
+/* Dark mode fix for gallery overlay text */
+[data-theme="dark"] .first-image-wrapper:after {
+    color: #e0e0e0 !important;
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset='utf8'>
+        <style>
+            body {
+                background: #eaeaea;  /* Light gray for body */
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+            }
+            #ruffle {
+                margin: auto;
+                border: 1px solid black;
+                background: white;    /* White for Flash container */
+                height: 516px;        /* Slightly less than the 600px height */
+                overflow: hidden;      /* Hide anything outside this height */
+            }
+        </style>
+    </head>
+    <body>
+        <div id='ruffle'></div>
+        <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+        <script>
+// Create a minimal swfobject for Flash-style embedding
+var swfobject = {};
+
+swfobject.embedSWF = function(url, cont, width, height){
+    // Create a Ruffle player instance
+    var ruffle = window.RufflePlayer.newest(),
+        player = Object.assign(document.getElementById(cont).appendChild(ruffle.createPlayer()), {
+            width: width,
+            height: height,
+            style: 'width: ' + width + 'px; height: ' + height + 'px',
+        });
+    
+    // Load the SWF with base path for loading other SWFs
+    player.load({ 
+        url: url,
+        base: "flash/307/",
+        quality: "high"  // Set Flash quality to high
+    });
+}
+
+// Start the Flash content
+swfobject.embedSWF('flash/307/start here.swf', 'ruffle', 800, 600);
+        </script>
+    </body>
+</html>
