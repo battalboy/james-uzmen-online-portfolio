@@ -113,6 +113,10 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       mediaElement = document.createElement('img');
       mediaElement.src = currentItem.src;
+      // Copy class attribute for styling (e.g., invert-dark)
+      if (currentItem.className) {
+        mediaElement.className = currentItem.className;
+      }
     }
     
     // Create caption
