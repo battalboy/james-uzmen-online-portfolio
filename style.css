@@ -718,3 +718,8 @@ input[type="checkbox"] {
 [data-theme="dark"] .first-image-wrapper:after {
     color: #e0e0e0 !important;
 }
+
+/* Invert black-on-white images in dark mode */
+[data-theme="dark"] .invert-dark {
+    filter: invert(1);
+}
