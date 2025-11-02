@@ -117,11 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (currentItem.className) {
         mediaElement.className = currentItem.className;
       }
-      // Copy inline style attribute (e.g., borders) but exclude display property
-      if (currentItem.style.cssText) {
-        const styles = currentItem.style.cssText.split(';').filter(s => !s.trim().startsWith('display'));
-        mediaElement.style.cssText = styles.join(';');
-      }
     }
     
     // Create caption
