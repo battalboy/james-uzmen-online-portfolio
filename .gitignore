@@ -39,3 +39,19 @@ npm-debug.log*
 *.tmp
 *.temp
 
+# Cursor / AI tooling
+.specstory/
+.cursorindexingignore
+.cursor/
+
+# Alternate site (WIP, not deployed)
+other/
+
+# Backup files (history is in git)
+index-backup.html
+index-backup2.html
+style-backup.css
+
+# Dev experiments
+test.html
+
