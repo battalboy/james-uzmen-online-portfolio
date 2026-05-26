@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Check for saved preference, otherwise use system preference
   const savedTheme = localStorage.getItem('theme');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+  const currentTheme = savedTheme || (prefersDark === false ? 'light' : 'dark');
   htmlElement.setAttribute('data-theme', currentTheme);
   
   // Update toggle button icon
