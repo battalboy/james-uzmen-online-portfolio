@@ -347,6 +347,8 @@ span.year-small {
   .timeline_item {
     grid-template-columns: 64px 1fr;
     width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   .timeline_left {
