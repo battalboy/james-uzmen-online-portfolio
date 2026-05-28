@@ -323,35 +323,4 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', updateDotOpacity, { passive: true });
   updateDotOpacity();
 
-  // Arrow key navigation between snap points
-  const snapTargets = document.querySelectorAll('.first-image-wrapper');
-  const getClosestSnapIndex = () => {
-    const viewportCenter = window.innerHeight / 2;
-    let closestIndex = 0;
-    let closestDistance = Infinity;
-    snapTargets.forEach((el, i) => {
-      const rect = el.getBoundingClientRect();
-      const elCenter = rect.top + rect.height / 2;
-      const distance = Math.abs(elCenter - viewportCenter);
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closestIndex = i;
-      }
-    });
-    return closestIndex;
-  };
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-      const lightbox = document.querySelector('.lightbox.active');
-      if (lightbox) return;
-
-      e.preventDefault();
-      const current = getClosestSnapIndex();
-      const next = e.key === 'ArrowDown'
-        ? Math.min(current + 1, snapTargets.length - 1)
-        : Math.max(current - 1, 0);
-      snapTargets[next].scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  });
 }); 

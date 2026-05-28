@@ -93,7 +93,6 @@
 /* Set html height to 100% */
 html {
   height: 100%;
-  scroll-snap-type: y proximity;
 }
 
 /* Set body min height to 100% so body content can fill the page dynamically */
@@ -153,6 +152,7 @@ div.title {
   display: flex;
   flex-direction: column;
 }
+
 
 .paragraph-large {
   letter-spacing: -0.02em;
@@ -742,7 +742,6 @@ input[type="checkbox"] {
 .first-image-wrapper {
     position:relative;
     box-shadow: var(--shadow-wispy);
-    scroll-snap-align: center;
 }
 .first-image-wrapper img {
     width:100%;
